@@ -1,0 +1,22 @@
+{
+  "name": "cryptomons-contract",
+  "version": "0.0.1",
+  "description": "Smart Contract for cryptomons.com ERC721",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "truffle test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sebastianomorando/cryptomons-smart-contract.git"
+  },
+  "author": "Sebastiano Morando",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sebastianomorando/cryptomons-smart-contract/issues"
+  },
+  "homepage": "https://github.com/sebastianomorando/cryptomons-smart-contract#readme"
+}
