@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/sebastianomorando/cryptomons-smart-contract/issues"
   },
-  "homepage": "https://github.com/sebastianomorando/cryptomons-smart-contract#readme"
+  "homepage": "https://github.com/sebastianomorando/cryptomons-smart-contract#readme",
+  "dependencies": {
+    "babel-polyfill": "^6.26.0"
+  }
 }
