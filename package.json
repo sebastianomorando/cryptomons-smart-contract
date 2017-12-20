@@ -21,5 +21,8 @@
   "homepage": "https://github.com/sebastianomorando/cryptomons-smart-contract#readme",
   "dependencies": {
     "babel-polyfill": "^6.26.0"
+  },
+  "devDependencies": {
+    "zeppelin-solidity": "^1.4.0"
   }
 }

@@ -1,9 +1,8 @@
 pragma solidity ^0.4.4;
+import 'zeppelin-solidity/contracts/ownership/Ownable.sol';
 
-contract CryptoMons {
+contract CryptoMons is Ownable{
 
-    address owner;
-    address[16] public owners;
     uint constant public sellingPrice = 0.01 ether;
 
     // 0: for sale, 1: not for sale
@@ -44,10 +43,6 @@ contract CryptoMons {
     function takeOwnership(uint256 _tokenId) {
         cryptoMonIndexToAddress[_tokenId] = msg.sender;
         balanceOf[msg.sender]++;
-    }
-
-    function GetOwnerOf(uint256 _tokenId) public returns (address) {
-        return cryptoMonIndexToAddress[_tokenId];
     }
 
     //get all cryptomons state

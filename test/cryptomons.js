@@ -12,7 +12,7 @@ contract('CryptoMons', (accounts) => {
       contract = instance
       return instance.buy(5, {from: user1, value: web3.toWei('0.01', 'ether')})
     }).then((result) => {
-      return contract.GetOwnerOf.call(5)
+      return contract.ownerOf.call(5)
     }).then((result) => {
       assert.equal(user1, result, "Token not assigned to buyer")
     })
