@@ -18,7 +18,7 @@ contract CryptoMons is Pausable, Utils, CryptoMonsOwnership {
     //claim a cryptomon
     function takeOwnership(uint256 _tokenId) {
         cryptoMonIndexToAddress[_tokenId] = msg.sender;
-        balanceOf[msg.sender]++;
+        _balanceOf[msg.sender]++;
     }
 
     //get all cryptomons state

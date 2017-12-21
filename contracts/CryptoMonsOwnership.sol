@@ -3,7 +3,7 @@ pragma solidity ^0.4.4;
 import "./ERC721Draft.sol";
 import "./CryptoMonsBase.sol";
 
-contract CryptoMonsOwnership is CryptoMonsBase {
+contract CryptoMonsOwnership is CryptoMonsBase, ERC721 {
 
     string public name = "CryptoMons";
     string public symbol = "CM";
@@ -28,14 +28,14 @@ contract CryptoMonsOwnership is CryptoMonsBase {
     function approve(address _to, uint256 _tokenId) public {
         cryptoMonIndexToApproved[_tokenId] = _to;
     }
-/*
+
     function transferFrom(address _from, address _to, uint256 _tokenId) public {
 
     }
 
     function transfer(address _to, uint256 _tokenId) public {
 
-    }*/
+    }
 
     function CryptoMonsOwnership () {
 
