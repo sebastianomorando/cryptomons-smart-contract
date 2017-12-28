@@ -7,12 +7,18 @@ contract CryptoMons is Pausable, Utils, CryptoMonsOwnership {
 
     uint constant public sellingPrice = 0.01 ether;
 
+    address public market;
+
     // 0: for sale, 1: not for sale
     uint8[16] public cryptoMonState;
 
     modifier minimum_value(uint256 x) {
         require(msg.value >= x);
         _;
+    }
+
+    function setMarketContract(address _address) onlyOwner {
+        market = _address;
     }
 
     //claim a cryptomon
