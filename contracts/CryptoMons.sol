@@ -22,7 +22,7 @@ contract CryptoMons is Pausable, Utils, CryptoMonsOwnership {
     }
 
     //claim a cryptomon
-    function takeOwnership(uint256 _tokenId) {
+    function takeOwnership(uint256 _tokenId) external {
         cryptoMonIndexToAddress[_tokenId] = msg.sender;
         _balanceOf[msg.sender]++;
     }

@@ -1,12 +1,35 @@
 const CryptoMons = artifacts.require("CryptoMons");
+const MarketPlace = artifacts.require("marketPlace");
 const util = require("./util.js");
+
+contract('MarketPlace', async function (accounts){
+  const core = await CryptoMons.deployed()
+  const mp = await MarketPlace.deployed()
+  const owner = accounts[0]
+  const user1 = accounts[1]
+  const user2 = accounts[2]
+  const user3 = accounts[3]
+
+  it("should assign the marketplace contract to the non fungible one", async function () {
+    await mp.NonFungibleContract(core.address)
+    let address = await mp.NonFungibleContractAddress.call()
+    assert.equal(core.address, address, "Contract assignement not done")
+  })
+
+  it("should not be possible to get a cryptomon by the core contract", async function () {
+    await core.takeOwnership(5, {from: user1})
+    let newOwner = await core.ownerOf(5)
+    assert.equal(user1, newOwner, "Token not assigned to buyer")
+  })
+
+})
 
 contract('CryptoMons', (accounts) => {
   const owner = accounts[0]
   const user1 = accounts[1]
   const user2 = accounts[2]
   const user3 = accounts[3]
-  var contract
+  // var contract
   it("should assign a cryptomon to a buyer", function () {
     return CryptoMons.deployed().then((instance) => {
       contract = instance
