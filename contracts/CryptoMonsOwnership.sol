@@ -25,11 +25,12 @@ contract CryptoMonsOwnership is CryptoMonsBase, ERC721 {
         return cryptoMonIndexToAddress[_tokenId];
     }
 
-    function approve(address _to, uint256 _tokenId) public {
+    function approve(address _to, uint256 _tokenId) public WhenNotPaused {
+        require(_owns(msg.sender, _tokenId));
         cryptoMonIndexToApproved[_tokenId] = _to;
     }
 
-    function transferFrom(address _from, address _to, uint256 _tokenId) public {
+    function transferFrom(address _from, address _to, uint256 _tokenId) public WhenNotPaused {
 
     }
 
