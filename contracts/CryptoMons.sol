@@ -3,7 +3,7 @@ import 'zeppelin-solidity/contracts/lifecycle/Pausable.sol';
 import './Utils.sol';
 import './CryptoMonsOwnership.sol';
 
-contract CryptoMons is Pausable, Utils, CryptoMonsOwnership {
+contract CryptoMons is Pausable, Utils, CryptoMonsOwnership, WhiteListable {
 
     uint constant public sellingPrice = 0.01 ether;
 
@@ -32,13 +32,20 @@ contract CryptoMons is Pausable, Utils, CryptoMonsOwnership {
         return cryptoMonState;
     }
 
-    function buy(uint256 _tokenId)
-    minimum_value(sellingPrice)
-    payable
+    function mint(uint256 _tokenId)
+    onlyWhitelistedForMinting()
     {
         require(ownerOf(_tokenId) == address(0));
         cryptoMonIndexToAddress[_tokenId] = msg.sender;
         _balanceOf[msg.sender]++;
+    }
+
+    function mintAndTransfer(uint256 _tokenId, address _address)
+    onlyWhitelistedForMinting()
+    {
+        require(ownerOf(_tokenId) == address(0));
+        cryptoMonIndexToAddress[_tokenId] = _address;
+        _balanceOf[_address]++;
     }
 
     function CryptoMons() {

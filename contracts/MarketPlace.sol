@@ -12,10 +12,6 @@ contract MarketPlace is Pausable {
 
     mapping (uint256 => uint256) public NFTForSale;
 
-    function _owns(address _claimant, uint256 _tokenId) internal view returns (bool) {
-        return (nonFungibleContract.ownerOf(_tokenId) == _claimant);
-    }
-
     function _isForSale(uint256 _tokenId)  internal view returns (bool) {
         return (NFTForSale[_tokenId] != 0);
     }
@@ -30,14 +26,14 @@ contract MarketPlace is Pausable {
     }
 
     function putOnSale(uint256 _tokenId, uint256 price) {
-        require(_owns(msg.sender, _tokenId));
+        require(nonFungibleContract.ownerOf(_tokenId) == msg.sender);
         _escrow(msg.sender, _tokenId);
         NFTForSale[_tokenId] = price;
     }
-
+/*
     function _removeAuction(uint256 _tokenId) internal {
         delete tokenIdToAuction[_tokenId];
-    }
+    }*/
 
     function buy(uint256 _tokenId)
     payable
@@ -48,7 +44,7 @@ contract MarketPlace is Pausable {
         uint256 auctioneerCut = _computeCut(msg.value);
         uint256 sellerProceeds = msg.value - auctioneerCut;
 
-        seller.transfer(sellerProceeds);
+        // seller.transfer(sellerProceeds);
 
         //take the percentage and give the rest to the seller
         //transfer the token to the buyer
