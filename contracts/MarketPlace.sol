@@ -1,5 +1,6 @@
 pragma solidity ^0.4.4;
 import 'zeppelin-solidity/contracts/lifecycle/Pausable.sol';
+import './Cryptomons.sol';
 
 /*
     user approves the transfer of his token to the marketplace contract
@@ -7,7 +8,7 @@ import 'zeppelin-solidity/contracts/lifecycle/Pausable.sol';
 
 contract MarketPlace is Pausable {
 
-    address public nonFungibleContract;
+    CryptoMons public nonFungibleContract;
     uint256 public ownerCut;
 
     mapping (uint256 => uint256) public NFTForSale;
@@ -22,7 +23,7 @@ contract MarketPlace is Pausable {
     }
 
     function setNonFungibleContract(address _address) onlyOwner {
-        nonFungibleContract = _address;
+        nonFungibleContract = CryptoMons(_address);
     }
 
     function putOnSale(uint256 _tokenId, uint256 price) {

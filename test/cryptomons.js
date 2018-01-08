@@ -12,14 +12,14 @@ contract('CryptoMonsMinting', async function (accounts) {
   const user3 = accounts[3]
 
   it("should assign the minting contract to the non fungible one", async function () {
-    await minting.NonFungibleContract(core.address)
-    let address = await minting.NonFungibleContractAddress.call()
+    await minting.setNonFungibleContract(core.address)
+    let address = await minting.nonFungibleContract.call()
     assert.equal(core.address, address, "Contract assignment not done")
   })
 
   it("should wehitelist the minting contract and let a user to print his own cryptomon card", async function () {
     await core.enableMintingWhitelist(minting.address)
-    await minting.print(core.address, (5, {from: user1}))
+    await minting.print(5, {from: user1, value: web3.toWei('0.01', 'ether')})
     let newOwner = await core.ownerOf(5)
     assert.equal(user1, newOwner, "Token not assigned to buyer")
   })
@@ -48,24 +48,20 @@ contract('MarketPlace', async function (accounts){
 
 })
 
-contract('CryptoMons', (accounts) => {
+contract('CryptoMons', async function (accounts) {
+  const core = await CryptoMons.deployed()
   const owner = accounts[0]
   const user1 = accounts[1]
   const user2 = accounts[2]
   const user3 = accounts[3]
   // var contract
-  it("should assign a cryptomon to a buyer", function () {
-    return CryptoMons.deployed().then((instance) => {
-      contract = instance
-      return instance.buy(5, {from: user1, value: web3.toWei('0.01', 'ether')})
-    }).then((result) => {
-      return contract.ownerOf.call(5)
-    }).then((result) => {
+  it("should let a whitelisted address mint cryptomons", async function () {
+      await core.mintAndTransfer(6, {from: user1})
+      core.ownerOf.call(6)
       assert.equal(user1, result, "Token not assigned to buyer")
     })
-  })
 
-  it("should not assign the cryptomon if the buyer doesn't send enough ether", async function() {
+ /* it("should not assign the cryptomon if the buyer doesn't send enough ether", async function() {
     await util.expectThrow(
       contract.buy(6, {from: user1, value: web3.toWei('0.001', 'ether')})
     );
@@ -75,5 +71,5 @@ contract('CryptoMons', (accounts) => {
     await util.expectThrow(
       contract.buy(5, {from: user2, value: web3.toWei('0.01', 'ether')})
     )
-  })
+  })*/
 })
