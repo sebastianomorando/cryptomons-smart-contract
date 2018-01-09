@@ -1,6 +1,7 @@
 pragma solidity ^0.4.4;
+import 'zeppelin-solidity/contracts/lifecycle/Pausable.sol';
 
-contract WhiteListable {
+contract WhiteListable is Pausable {
     // list of all the contracts that can create new cryptomons
     mapping(address => bool) mintingWhitelist;
 
@@ -17,19 +18,19 @@ contract WhiteListable {
         _;
     }
 
-    function enableMintingWhitelist(address _address) {
+    function enableMintingWhitelist(address _address) onlyOwner {
         mintingWhitelist[_address] = true;
     }
 
-    function disableMintingWhitelist(address _address){
+    function disableMintingWhitelist(address _address) onlyOwner {
         mintingWhitelist[_address] = false;
     }
 
-    function enableMarketplaceWhitelist(address _address) {
+    function enableMarketplaceWhitelist(address _address) onlyOwner {
         marketplaceWhitelist[_address] = true;
     }
 
-    function disableMarketplaceWhitelist(address _address){
+    function disableMarketplaceWhitelist(address _address) onlyOwner {
         marketplaceWhitelist[_address] = false;
     }
 }

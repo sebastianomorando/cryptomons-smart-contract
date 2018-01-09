@@ -2,7 +2,7 @@ pragma solidity ^0.4.4;
 
 contract CryptoMonsBase {
 
-    uint _totalSupply = 15;
+    uint public _totalSupply = 0;
 
     // map a monster to an address
     mapping (uint256 => address) public cryptoMonIndexToAddress;
