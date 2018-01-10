@@ -5,6 +5,10 @@ import './CryptoMonsOwnership.sol';
 
 contract CryptoMons is Pausable, Utils, CryptoMonsOwnership, WhiteListable {
 
+    function changeMetadataBaseUrl(string _baseUrl) onlyOwner {
+        baseUrl = _baseUrl;
+    }
+
     function mint(uint256 _tokenId)
     onlyWhitelistedForMinting()
     {
