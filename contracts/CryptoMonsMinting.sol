@@ -1,8 +1,9 @@
 pragma solidity ^0.4.4;
 import 'zeppelin-solidity/contracts/lifecycle/Pausable.sol';
 import './Cryptomons.sol';
+import './ValidDna.sol';
 
-contract CryptoMonsMinting is Pausable {
+contract CryptoMonsMinting is Pausable, ValidDna {
 
     CryptoMons public nonFungibleContract;
     uint constant public sellingPrice = 0.01 ether;
@@ -20,6 +21,7 @@ contract CryptoMonsMinting is Pausable {
     minimum_value(sellingPrice)
     payable
     {
+        require(isValidDna(_tokenId));
         nonFungibleContract.mintAndTransfer(_tokenId, msg.sender);
     }
 

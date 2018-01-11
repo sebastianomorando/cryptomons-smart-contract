@@ -35,14 +35,14 @@ contract('CryptoMonsMinting', async function (accounts) {
 
   it("should not let print cards under the minimum value", async function () {
     const minting = await CryptoMonsMinting.deployed()
-    await util.expectRevert(
+    await util.expectThrow(
       minting.print(8, {from: user1, value: web3.toWei('0.001', 'ether')})
     )
   })
   
   it("should not print cards already printed", async function () {
     const minting = await CryptoMonsMinting.deployed()
-    await util.expectRevert(
+    await util.expectThrow(
       minting.print(5, {from: user2, value: web3.toWei('0.01', 'ether')})
     )
   })
@@ -92,7 +92,7 @@ contract('CryptoMons', async function (accounts) {
     })
 
   it ("should not let a not whitelisted address mint cryptomons", async function () {
-    await util.expectRevert(
+    await util.expectThrow(
       core.mintAndTransfer(7, user1, {from: user1})
     );
   })
