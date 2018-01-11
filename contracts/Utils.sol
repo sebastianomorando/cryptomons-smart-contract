@@ -2,15 +2,10 @@ pragma solidity ^0.4.4;
 
 contract Utils {
 
-    event Debug(uint8[32] log);
-    event DebugSingle (uint8 single);
-
     /// convert un uint256 in a byte array
-    function uintToByteArray(uint256 x) internal returns (uint8[32]) {
-        DebugSingle(5);
-        uint8[32] memory b;
+    function uintToByteArray (uint _tokenId) /*internal*/ returns (uint8[32] b) {
         for (uint i = 0; i < 32; i++) {
-            b[i] = uint8(x / (2**(8*(31 - i))));
+            b[i] = uint8(_tokenId / (2**(8*(31 - i))));
         }
         return b;
     }

@@ -9,6 +9,16 @@ contract('CryptoMonsMinting', async function (accounts) {
   const user2 = accounts[2]
   const user3 = accounts[3]
 
+  it("should convert a uint256 to a uint8[32]", async function () {
+    const core = await CryptoMons.deployed()
+    const minting = await CryptoMonsMinting.deployed()
+    let validDnaValues = await minting.validDnaValues.call(31)
+    let result = await minting.uintToByteArray.call(1)
+    console.log(validDnaValues.toString())
+    //console.log(result)
+    assert.equal(result[31], 1, "Error in conversion")
+  })
+
   it("should assign the minting contract to the non fungible one", async function () {
     const core = await CryptoMons.deployed()
     const minting = await CryptoMonsMinting.deployed()
@@ -30,6 +40,7 @@ contract('CryptoMonsMinting', async function (accounts) {
     let gasCost = before - after
     console.log('GAS COST FOR THE TRANSACTION:', gasCost)
     let newOwner = await core.ownerOf(5)
+    console.log(newOwner)
     assert.equal(user1, newOwner, "Token not assigned to buyer")
   })
 
