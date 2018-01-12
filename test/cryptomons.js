@@ -2,6 +2,7 @@ const CryptoMons = artifacts.require("CryptoMons");
 const MarketPlace = artifacts.require("marketPlace");
 const CryptoMonsMinting = artifacts.require("CryptoMonsMinting");
 const util = require("./util.js");
+const dna = require("./dna.js");
 
 contract('CryptoMonsMinting', async function (accounts) {
   const owner = accounts[0]
@@ -50,6 +51,30 @@ contract('CryptoMonsMinting', async function (accounts) {
       minting.print(8, {from: user1, value: web3.toWei('0.001', 'ether')})
     )
   })
+
+  it("should not print cards with invalid DNA", async function () {
+    const minting = await CryptoMonsMinting.deployed()
+    await util.expectThrow(
+     minting.print(dna.getCryptomonDNA([5, 6, 11, 11, 11, 12]), {from: user1, value: web3.toWei('0.01', 'ether')})
+    )
+  });
+
+  it("should not print cards with invalid DNA 2", async function () {
+    const minting = await CryptoMonsMinting.deployed()
+    await util.expectThrow(
+      minting.print(dna.getCryptomonDNA([1, 2, 2, 2, 2, 2, 2]), {from: user1, value: web3.toWei('0.01', 'ether')})
+    )
+  });
+
+  it("should print cards with valid DNA", async function () { //maximum dna values 5, 6, 11, 11, 11, 11
+    const minting = await CryptoMonsMinting.deployed()
+    const core = await CryptoMons.deployed()
+    let id = dna.getCryptomonDNA([5, 6, 11, 11, 11, 11])
+    console.log('ID --', id)
+    await minting.print(id, {from: user1, value: web3.toWei('0.01', 'ether')})
+    let newOwner = await core.ownerOf(id)
+    assert.equal(user1, newOwner, "Token not assigned to buyer")
+  });
   
   it("should not print cards already printed", async function () {
     const minting = await CryptoMonsMinting.deployed()
@@ -61,7 +86,7 @@ contract('CryptoMonsMinting', async function (accounts) {
   it ("should return the correct total supply", async function () {
     const core = await CryptoMons.deployed()
     let existingMons = await core.totalSupply()
-    assert.equal(existingMons, 2)
+    assert.equal(existingMons, 3)
   })
 
 })

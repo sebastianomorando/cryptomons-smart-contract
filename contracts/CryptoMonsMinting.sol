@@ -6,7 +6,7 @@ import './ValidDna.sol';
 contract CryptoMonsMinting is Pausable, ValidDna {
 
     CryptoMons public nonFungibleContract;
-    uint constant public sellingPrice = 0.01 ether;
+    uint public sellingPrice = 0.01 ether;
 
     modifier minimum_value(uint256 x) {
         require(msg.value >= x);
@@ -15,6 +15,14 @@ contract CryptoMonsMinting is Pausable, ValidDna {
 
     function setNonFungibleContract(address _address) onlyOwner {
         nonFungibleContract = CryptoMons(_address);
+    }
+
+    function setSellingPrice(uint _newPrice) onlyOwner {
+        sellingPrice = _newPrice;
+    }
+
+    function withdraw(uint amount, address _address) onlyOwner {
+        _address.transfer(amount);
     }
 
     function print(uint256 _tokenId)

@@ -20,6 +20,6 @@ contract ValidDna is Utils, Ownable {
   }
 
     function ValidDna () {
-        validDnaValues = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,5, 6, 11, 11, 11, 11 ];
+        validDnaValues = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 6, 11, 11, 11, 11 ];
     }
 }
