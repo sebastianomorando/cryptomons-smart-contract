@@ -14,6 +14,8 @@ contract CryptoMonsBase {
 
     mapping (uint256 => address) public cryptoMonIndexToApproved;
 
+    mapping (uint256 => string) public cryptoMonName;
+
     /* This creates an array with all balances */
     mapping (address => uint256) public _balanceOf;
 

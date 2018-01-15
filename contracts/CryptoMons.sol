@@ -9,6 +9,13 @@ contract CryptoMons is Pausable, Utils, CryptoMonsOwnership, WhiteListable {
         baseUrl = _baseUrl;
     }
 
+    function assignName(uint256 _tokenId, string name)
+    {
+        require(msg.sender == ownerOf(_tokenId));
+        require(bytes(cryptoMonName[_tokenId]).length == 0);
+        cryptoMonName[_tokenId] = name;
+    }
+
     function mint(uint256 _tokenId)
     onlyWhitelistedForMinting()
     {
