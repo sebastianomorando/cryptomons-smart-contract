@@ -5,6 +5,8 @@ import './CryptoMonsOwnership.sol';
 
 contract CryptoMons is Pausable, Utils, CryptoMonsOwnership, WhiteListable {
 
+    event Minted(address indexed newOwner, uint256 indexed tokenId);
+
     function changeMetadataBaseUrl(string _baseUrl) onlyOwner {
         baseUrl = _baseUrl;
     }
@@ -29,6 +31,7 @@ contract CryptoMons is Pausable, Utils, CryptoMonsOwnership, WhiteListable {
         cryptoMonIndexToAddress[_tokenId] = _address;
         _balanceOf[_address]++;
         _totalSupply++;
+        Minted(_address, _tokenId);
     }
 
     function CryptoMons() {
