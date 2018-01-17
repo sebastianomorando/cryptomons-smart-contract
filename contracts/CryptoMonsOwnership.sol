@@ -62,11 +62,16 @@ contract CryptoMonsOwnership is CryptoMonsBase, ERC721, Pausable, Utils {
         transferFrom(msg.sender, _to, _tokenId);
     }
 
-    /*
-    function tokenMetadata(uint256 _tokenId) public view returns (string) {
-        return strConcat(baseUrl, uintToBytes(_tokenId));
+    function tokenMetadata(uint256 _tokenId) public view returns (string infoUrl) {
+        infoUrl = baseUrl;
+        bytes memory infoUrlBytes = bytes(baseUrl);
+        infoUrlBytes[26] = byte(48+(_tokenId / 10000) % 10);
+        infoUrlBytes[27] = byte(48+(_tokenId / 1000) % 10);
+        infoUrlBytes[28] = byte(48+(_tokenId / 100) % 10);
+        infoUrlBytes[29] = byte(48+(_tokenId / 10) % 10);
+        infoUrlBytes[30] = byte(48+(_tokenId / 1) % 10);
     }
-*/
+
     function CryptoMonsOwnership () {
 
     }
