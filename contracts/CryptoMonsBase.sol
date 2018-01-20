@@ -16,6 +16,13 @@ contract CryptoMonsBase {
 
     mapping (uint256 => string) public cryptoMonName;
 
+    mapping(address => uint256[]) internal _assetsOf;
+
+   /**
+   * Stores the index of an asset in the `_assetsOf` array of its holder
+   */
+    mapping(uint256 => uint256) internal _indexOfAsset;
+
     /* This creates an array with all balances */
     mapping (address => uint256) public _balanceOf;
 
