@@ -19,8 +19,9 @@ const expectThrow = async promise => {
   } catch (err) {
     const outOfGas = err.message.includes("out of gas");
     const invalidOpcode = err.message.includes("invalid opcode");
+    const revert = err.message.includes("revert");
     assert(
-      outOfGas || invalidOpcode,
+      outOfGas || invalidOpcode || revert,
       "Expected throw, got `" + err + "` instead"
     );
     return;

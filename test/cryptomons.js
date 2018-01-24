@@ -89,6 +89,12 @@ contract('CryptoMonsMinting', async function (accounts) {
     assert.equal(existingMons, 3)
   })
 
+  it ("should list the card of an owner", async function () {
+    const core = await CryptoMons.deployed()
+    let monsters = await core.assetsOf(user1)
+    assert.equal(monsters.length, 3)
+  })
+
 })
 
 /*contract('MarketPlace', async function (accounts){
